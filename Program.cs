@@ -1,51 +1,60 @@
 ﻿using System;
 using static System.Console;
-namespace ConsoleApp4
+namespace ConsoleApp2
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[,] arr = new int[5, 5];
+            int[] mark = new int[10];
             var rand = new Random();
-            for(int i=0;i<5;i++)
+            int variant;
+            for (int i = 0; i < 10; i++)
             {
-                for(int j=0;j<5;j++)
-                {
-                    arr[i, j] = rand.Next(0, 15);
-                }
+                mark[i] = rand.Next(1, 13);
             }
-            for (int i = 0; i < 5; i++)
+        link1:
+            WriteLine("нажмите 1 чтобы вывести оценки \n нажмите 2 чтобы править оценку \n нажмите 3 чтобы узнать можете ли вы получить стипендию");
+            variant = Convert.ToInt32(ReadLine());
+            
+            switch (variant)
             {
-                for (int j = 0; j < 5; j++)
-                {
-                    Write(arr[i, j] + "|");
-                }
-                WriteLine(" ");
+                case 1:
+                    for (int i = 0; i < 10; i++)
+                    {
+                        WriteLine($"mark № {i + 1} " + mark[i]);
+                    }
+                    break;
+                case 2:
+                    WriteLine("введите номер оценки");
+                    int tempidmark;
+                    tempidmark = Convert.ToInt32(ReadLine());
+                    tempidmark -=1;
+                    WriteLine("введите новую оценку");
+                    int tempmark;
+                    tempmark = Convert.ToInt32(ReadLine());
+                    mark[tempidmark] = tempmark;
+                    break;
+                case 3:
+                   
+                    int summmark = 0;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        summmark = summmark + mark[i];
+                    }
+                    bool grand = false;
+                    double srball = summmark / 10.0;
+                    if (srball > 10.7)
+                    {
+                        grand = true;
+                    }
+                    if (grand == true)
+                        WriteLine("вы можете получить стипендию");
+                    else
+                        WriteLine("вы не можете получить стипендию");
+                    break;
             }
-            int k = 0,summ=0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    summ = summ + arr[i, j];
-                    k++;
-                }
-            }
-            WriteLine($"среднее арифметическое = {summ * 1.0 / k}");
-            int min = arr[0, 0], max = arr[0, 0];
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (arr[i, j] > max)
-                        max = arr[i, j];
-                    if (arr[i, j] < min)
-                        min = arr[i, j];
-                }
-            }
-            WriteLine("минимальное значение:" + min);
-            WriteLine("максимальное значение" + max);
+            goto link1;
         }
     }
 }
